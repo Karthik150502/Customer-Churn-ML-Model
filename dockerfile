@@ -15,6 +15,10 @@ RUN pip install --upgrade pip \
 # 5. Copy the entire project into the image
 COPY . .
 
+
+#======================================================================================================================
+# Mandatory addtional steps
+#======================================================================================================================
 # Explicitly copy model (in case .dockerignore excluded mlruns)
 # NOTE: destination changed to /app/src/serving/model to match inference.py's path
 COPY src/serving/model /app/src/serving/model
@@ -28,7 +32,8 @@ COPY src/serving/model/3b1a41221fc44548aed629fa42b762e0/artifacts/preprocessing.
 # ensures logs are shown in real-time (no buffering).
 # lets you import modules using from app... instead of from src.app....
 ENV PYTHONUNBUFFERED=1 \ 
-    PYTHONPATH=/app/src
+PYTHONPATH=/app/src
+#======================================================================================================================
 
 # 6. Expose FastAPI port
 EXPOSE 8000
